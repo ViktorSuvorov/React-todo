@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Footer from "./Footer";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 
@@ -15,10 +16,10 @@ class TodoList extends Component {
   };
 
   handleDeleteTodo = (id) => {
-      this.setState({
-          todos:this.state.todos.filter(todo => todo.id !==id)
-      })
-  }
+    this.setState({
+      todos: this.state.todos.filter((todo) => todo.id !== id),
+    });
+  };
 
   toggleComplete = (id) => {
     this.setState({
@@ -39,10 +40,9 @@ class TodoList extends Component {
 
   updateTodoToShow = (show) => {
     this.setState({
-        todoFilter: show,
+      todoFilter: show,
     });
   };
-
 
   render() {
     let todos = [];
@@ -51,10 +51,10 @@ class TodoList extends Component {
       todos = this.state.todos;
     } else if (this.state.todoFilter === "active") {
       todos = this.state.todos.filter((todo) => !todo.complete);
-    } else if (this.state.todoFilter === 'completed') {
+    } else if (this.state.todoFilter === "completed") {
       todos = this.state.todos.filter((todo) => todo.complete);
     }
- 
+
     return (
       <div>
         <TodoForm onSubmit={this.addTodo} />
@@ -69,25 +69,28 @@ class TodoList extends Component {
             />
           ))}
           <div className="todo-info">
-          <div className="todo-info-item">
-            items left:{" "}
-            {this.state.todos.filter((todo) => !todo.complete).length}
+            <div className="todo-info-item">
+              items left:{" "}
+              {this.state.todos.filter((todo) => !todo.complete).length}
             </div>
             <div className="todo-info-item">
-            items completed: 
-            {this.state.todos.filter((todo) => todo.complete).length}
+              items completed:
+              {this.state.todos.filter((todo) => todo.complete).length}
             </div>
           </div>
-          <div className='info-buttons'>
-            <button onClick={() => this.updateTodoToShow("all")}>all</button>
+          <div className="info-buttons">
+            <button autoFocus onClick={() => this.updateTodoToShow("all")}>
+              all
+            </button>
             <button onClick={() => this.updateTodoToShow("active")}>
               active
             </button>
-            <button onClick={() =>console.log(this.updateTodoToShow("completed"))}>
+            <button onClick={() => this.updateTodoToShow("completed")}>
               completed
             </button>
           </div>
         </ul>
+        <Footer todoFilter={() => this.updateTodoToShow()}/>
       </div>
     );
   }

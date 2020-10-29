@@ -43,16 +43,19 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   border: none;
-  padding: 12px 12px;
-  font-size: 33px;
+  padding: 15px 15px;
+  font-size: 25px;
+  color: grey;
   font-weight: normal;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.3);
 }
 
 .todo-item button {
     background-color:rgba(77%, 4%, 4%, 0.7);
     border: none;
     color: white;
-    padding: 5px;
+    padding: 2px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -96,5 +99,5 @@ body {
   border: none;
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.3);
   font-size: 24px;
-  margin-bottom: 30px;
+  
 }
