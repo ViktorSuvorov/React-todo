@@ -13,7 +13,7 @@ this.setState({
 handleSubmit =(event) => {
   event.preventDefault()
   this.props.onSubmit({
-    id:new Date(),
+    id:new Date() + Math.random(),
     text:this.state.text,
     complete:false,
   })
@@ -22,7 +22,7 @@ handleSubmit =(event) => {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className='todo-form' onSubmit={this.handleSubmit}>
         <input value={this.state.text} onChange={this.handleChange} id="todo-form-input"  name="text" placeholder="What needs to be done?" />
       </form>
     );

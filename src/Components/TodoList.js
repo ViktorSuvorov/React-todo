@@ -14,6 +14,12 @@ class TodoList extends Component {
     });
   };
 
+  handleDeleteTodo = (id) => {
+      this.setState({
+          todos:this.state.todos.filter(todo => todo.id !==id)
+      })
+  }
+
   toggleComplete = (id) => {
     this.setState({
       todos: this.state.todos.map((todo) => {
@@ -48,9 +54,7 @@ class TodoList extends Component {
     } else if (this.state.todoFilter === 'completed') {
       todos = this.state.todos.filter((todo) => todo.complete);
     }
-
-
-
+ 
     return (
       <div>
         <TodoForm onSubmit={this.addTodo} />
@@ -59,15 +63,22 @@ class TodoList extends Component {
             <TodoItem
               key={todo.id}
               toggleComplete={() => this.toggleComplete(todo.id)}
+              deleteTodo={() => this.handleDeleteTodo(todo.id)}
               id={todo.id}
               todo={todo}
             />
           ))}
-          <div>
+          <div className="todo-info">
+          <div className="todo-info-item">
             items left:{" "}
             {this.state.todos.filter((todo) => !todo.complete).length}
+            </div>
+            <div className="todo-info-item">
+            items completed: 
+            {this.state.todos.filter((todo) => todo.complete).length}
+            </div>
           </div>
-          <div>
+          <div className='info-buttons'>
             <button onClick={() => this.updateTodoToShow("all")}>all</button>
             <button onClick={() => this.updateTodoToShow("active")}>
               active
