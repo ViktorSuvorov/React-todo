@@ -21,6 +21,14 @@ class TodoList extends Component {
     });
   };
 
+  updateTodo = (updatedText, position) => {
+    this.setState((state) => ({
+      todos: state.todos.map((todo, i) =>
+        i === position ? { ...todo, text: updatedText } : todo
+      ),
+    }));
+  };
+
   toggleComplete = (id) => {
     this.setState({
       todos: this.state.todos.map((todo) => {
@@ -60,7 +68,7 @@ class TodoList extends Component {
         <TodoForm onSubmit={this.addTodo} />
         <ul>
           {todos.map((todo) => (
-            <TodoItem
+            <TodoItem 
               key={todo.id}
               toggleComplete={() => this.toggleComplete(todo.id)}
               deleteTodo={() => this.handleDeleteTodo(todo.id)}
@@ -78,19 +86,12 @@ class TodoList extends Component {
               {this.state.todos.filter((todo) => todo.complete).length}
             </div>
           </div>
-          <div className="info-buttons">
-            <button autoFocus onClick={() => this.updateTodoToShow("all")}>
-              all
-            </button>
-            <button onClick={() => this.updateTodoToShow("active")}>
-              active
-            </button>
-            <button onClick={() => this.updateTodoToShow("completed")}>
-              completed
-            </button>
-          </div>
         </ul>
-        <Footer todoFilter={() => this.updateTodoToShow()}/>
+        <Footer
+          updateTodoToShowAll={() => this.updateTodoToShow("all")}
+          updateTodoToShowActive={() => this.updateTodoToShow("active")}
+          updateTodoToShowCompleted={() => this.updateTodoToShow("completed")}
+        />
       </div>
     );
   }
