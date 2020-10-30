@@ -21,14 +21,6 @@ class TodoList extends Component {
     });
   };
 
-  updateTodo = (updatedText, position) => {
-    this.setState((state) => ({
-      todos: state.todos.map((todo, i) =>
-        i === position ? { ...todo, text: updatedText } : todo
-      ),
-    }));
-  };
-
   toggleComplete = (id) => {
     this.setState({
       todos: this.state.todos.map((todo) => {
