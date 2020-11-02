@@ -21,6 +21,21 @@ class TodoList extends Component {
     });
   };
 
+  handleChangeRow = (event, id) => {
+    this.setState({
+      todos: this.state.todos.map((todo) => {
+        let updatedTodo = { ...todo };
+        if (todo.id === id) {
+          updatedTodo = {
+            ...updatedTodo,
+            text: event.target.value,
+          };
+        }
+        return updatedTodo;
+      }),
+    });
+  };
+
   toggleComplete = (id) => {
     this.setState({
       todos: this.state.todos.map((todo) => {
@@ -60,12 +75,13 @@ class TodoList extends Component {
         <TodoForm onSubmit={this.addTodo} />
         <ul>
           {todos.map((todo) => (
-            <TodoItem 
+            <TodoItem
               key={todo.id}
               toggleComplete={() => this.toggleComplete(todo.id)}
               deleteTodo={() => this.handleDeleteTodo(todo.id)}
               id={todo.id}
               todo={todo}
+              handleChangeRow={(event) => this.handleChangeRow(event,todo.id)}
             />
           ))}
           <div className="todo-info">
