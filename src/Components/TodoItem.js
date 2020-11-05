@@ -1,53 +1,63 @@
-import React, { useState, useEffect, useRef } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState, useRef } from 'react';
 
-export default (props) => {
+const todoItem = (props) => {
   const [isComponentVisible, setIsComponentVisible] = useState(false);
 
   const ref = useRef(null);
-  const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
+
+  const handleClickOutside = () => {
+    setIsComponentVisible(false);
+  };
+
+  const createRef = (event) => {
+    ref.current = event;
+  };
+
+  const handleKeyUp = (event) => {
+    if (event.keyCode === 13) {
       setIsComponentVisible(false);
     }
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  });
-
   return (
     <div className="todo-item">
       {!isComponentVisible && (
-        <button id="button-complete" onClick={props.toggleComplete}>
-          ✓
-        </button>
+        <label>
+          <input
+            id="todo-item-checkbox"
+            type="checkbox"
+            checked={props.todo.complete}
+            onChange={props.toggleComplete}
+          ></input>
+          <span></span>
+        </label>
       )}
-      <label
+      <div
         className={
-          props.todo.complete ? "todo-item--completed" : "todo-item--active"
+          props.todo.complete ? 'todo-item--completed' : 'todo-item--active'
         }
         onDoubleClick={() => setIsComponentVisible(true)}
       >
-        {" "}
+        {' '}
         {isComponentVisible && (
-          <div ref={ref}>
+          <div>
             <input
+              ref={createRef}
+              autoFocus
               type="text"
               value={props.todo.text}
-              onKeyUp={(event) => {
-                if (event.keyCode === 13) {
-                  setIsComponentVisible(false);
-                }
-              }}
+              onKeyUp={handleKeyUp}
               onChange={props.handleChangeRow}
+              onBlur={handleClickOutside}
             />
           </div>
         )}
         {!isComponentVisible && props.todo.text}
-      </label>
+      </div>
       {!isComponentVisible && <button onClick={props.deleteTodo}>X</button>}
     </div>
   );
 };
+
+export default todoItem;

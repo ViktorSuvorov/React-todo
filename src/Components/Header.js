@@ -1,3 +1,5 @@
-import React from "react";
+import React from 'react';
 
-export default () => <h1 className="header-h1">todos</h1>;
+const header = () => <h1 className="header-h1">todos</h1>;
+
+export default header;

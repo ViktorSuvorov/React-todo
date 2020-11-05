@@ -1,12 +1,11 @@
-import React, { Component } from "react";
-import Footer from "./Footer";
-import TodoForm from "./TodoForm";
-import TodoItem from "./TodoItem";
-
+import React, { Component } from 'react';
+import Footer from './Footer';
+import TodoForm from './TodoForm';
+import TodoItem from './TodoItem';
 class TodoList extends Component {
   state = {
     todos: [],
-    todoFilter: "all",
+    todoFilter: 'all',
   };
 
   addTodo = (todo) => {
@@ -59,34 +58,35 @@ class TodoList extends Component {
     });
   };
 
-  render() {
-    let todos = [];
-
-    if (this.state.todoFilter === "all") {
-      todos = this.state.todos;
-    } else if (this.state.todoFilter === "active") {
-      todos = this.state.todos.filter((todo) => !todo.complete);
-    } else if (this.state.todoFilter === "completed") {
-      todos = this.state.todos.filter((todo) => todo.complete);
+  getTodoList = () => {
+    const { todos, todoFilter } = this.state;
+    if (todoFilter === 'active') {
+      return todos.filter((todo) => !todo.complete);
     }
+    if (todoFilter === 'completed') {
+      return todos.filter((todo) => todo.complete);
+    }
+    return todos;
+  };
 
+  render() {
     return (
       <div>
         <TodoForm onSubmit={this.addTodo} />
         <ul>
-          {todos.map((todo) => (
+          {this.getTodoList().map((todo) => (
             <TodoItem
               key={todo.id}
               toggleComplete={() => this.toggleComplete(todo.id)}
               deleteTodo={() => this.handleDeleteTodo(todo.id)}
               id={todo.id}
               todo={todo}
-              handleChangeRow={(event) => this.handleChangeRow(event,todo.id)}
+              handleChangeRow={(event) => this.handleChangeRow(event, todo.id)}
             />
           ))}
           <div className="todo-info">
             <div className="todo-info-item">
-              items left:{" "}
+              items left:{' '}
               {this.state.todos.filter((todo) => !todo.complete).length}
             </div>
             <div className="todo-info-item">
@@ -95,11 +95,7 @@ class TodoList extends Component {
             </div>
           </div>
         </ul>
-        <Footer
-          updateTodoToShowAll={() => this.updateTodoToShow("all")}
-          updateTodoToShowActive={() => this.updateTodoToShow("active")}
-          updateTodoToShowCompleted={() => this.updateTodoToShow("completed")}
-        />
+        <Footer updateTodo={this.updateTodoToShow} />
       </div>
     );
   }

@@ -7,10 +7,6 @@ ul {
   list-style: none;
 }
 
-ul li {
-  max-width: 100%;
-}
-
 body {
   max-width: 1200px;
   margin: 0 auto;
@@ -19,6 +15,25 @@ body {
   font-size: 30px;
   padding-left: 18px;
   padding-right: 18px;
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
+button:hover {
+  color: red;
+  background-color: white;
 }
 
 .app {
@@ -43,40 +58,37 @@ body {
 }
 
 .todo-item {
-  display: flex;
-  justify-content: space-between;
+  position: relative;
   border: none;
-  font-size: 20px;
   font-weight: normal;
   background: rgba(0, 0, 0, 0.003);
-  box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 3px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.todo-item input {
-  width: 660%;
-  text-align: center;
+.todo-item div {
+  display: inline;
+  padding-left: 15px;
 }
 
 .todo-item button {
-  background-color: rgb(245, 47, 40);
-  border: none;
-  color: white;
-  padding: 2px;
-  text-align: center;
-  text-decoration: none;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(245, 47, 40);
+  color: rgb(245, 47, 40);
+  padding: 4px;
   display: inline-block;
-  font-size: 10px;
-  margin: 4px 2px;
+  font-size: 20px;
   border-radius: 50%;
-  margin-right: 10px;
-}
-
-#button-complete {
-  background-color: rgb(56, 173, 76);
-  margin-left: 10px;
+  vertical-align: middle;
+  margin-bottom: 2px;
 }
 
 .todo-info {
@@ -94,6 +106,8 @@ body {
 .todo-form {
   display: flex;
   justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 #todo-form-input {
@@ -105,13 +119,17 @@ body {
   border: none;
   box-shadow: 0 -1px 12px rgba(0, 0, 0, 0.5);
   font-size: 24px;
-  margin-bottom: 15px;
-  width: 900px;
-  min-width: 200px;
-  margin-right: 20px;
+  width: 100%;
 }
 
-/* Footer */
+.todo-item input {
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  font-size: 24px;
+  width: 800px;
+}
 
 .todo-footer {
   display: flex;
@@ -130,4 +148,44 @@ body {
   font-size: 15px;
   color: dimgray;
   text-align: center;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+label {
+  padding-left: 20px;
+}
+
+label:hover {
+  cursor: pointer;
+}
+
+label::before {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-left: -10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 1px solid green;
+}
+
+span::before {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-left: -41px;
+  border-radius: 50%;
+}
+
+input[type='checkbox']:checked + span::before {
+  content: '';
+  background-size: 100%;
+  background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
 }

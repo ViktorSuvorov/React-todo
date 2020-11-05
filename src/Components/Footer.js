@@ -1,12 +1,22 @@
 import React from 'react';
 
-export default (props) => (
+let footer = (props) => {
+  let changeFilter = (event) => {
+    props.updateTodo(event.target.innerText);
+  };
+
+  return (
     <>
-    <div className='todo-footer'>
-    <button onClick={props.updateTodoToShowAll}>All</button>
-    <button onClick={props.updateTodoToShowActive}>Active</button>
-    <button onClick={props.updateTodoToShowCompleted}>Completed</button>
-    </div>
-    <div className='footer-info'>Double-click on text to edit a todo</div>
+      <div className="todo-footer">
+        <button autoFocus onClick={changeFilter}>
+          all
+        </button>
+        <button onClick={changeFilter}>active</button>
+        <button onClick={changeFilter}>completed</button>
+      </div>
+      <div className="footer-info">Double-click on text to edit a todo</div>
     </>
-    )
+  );
+};
+
+export default footer;
