@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ADD_TODO, TOGGLE_TODO } from '../redux/actions/actionTypes';
 import Footer from './Footer';
 import TodoForm from './TodoForm';
 import TodoItem from './TodoItem';
@@ -14,7 +13,14 @@ class TodoList extends Component {
   };
 
   handleDeleteTodo = () => {
-   
+   console.group('handleDeleteTodo')
+   const {onDeleteTodo,todos} = this.props;
+
+   onDeleteTodo(todos.id)
+   console.log('adasda',onDeleteTodo)
+   console.log(todos)
+   console.log(todos.id)
+   console.groupEnd('handleDeleteTodo')
   };
 
   handleChangeRow = (event, id) => {
@@ -63,7 +69,7 @@ class TodoList extends Component {
             <TodoItem
               key={todo.id}
               toggleComplete={this.props.onToggleTodo}
-              deleteTodo={() => this.handleDeleteTodo}
+              deleteTodo={this.handleDeleteTodo}
               id={todo.id}
               todo={todo}
               handleChangeRow={(event) => this.handleChangeRow(event, todo.id)}
@@ -86,9 +92,9 @@ class TodoList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  todos:state.todos,
-  todoFilter:state.todoFilter
+const mapStateToProps = store => ({
+  todos:store.todos,
+  todoFilter:store.todoFilter
 })
 
 const mapDispatchToProps = dispatch => ({
