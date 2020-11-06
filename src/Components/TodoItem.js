@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useRef } from 'react';
 
-const todoItem = (props) => {
+let todoItem = (props) => {
   const [isComponentVisible, setIsComponentVisible] = useState(false);
 
   const ref = useRef(null);

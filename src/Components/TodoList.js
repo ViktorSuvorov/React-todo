@@ -20,35 +20,27 @@ class TodoList extends Component {
     });
   };
 
-  handleChangeRow = (event, id) => {
+  handleChangeRow = (event, id) => { 
+    const changeTodos = (event,id) => {
+      const todoIndex = this.state.todos.findIndex(todo => todo.id === id)
+      const todos = [...this.state.todos]
+      todos[todoIndex].text = event.target.value
+      return todos
+    }
     this.setState({
-      todos: this.state.todos.map((todo) => {
-        let updatedTodo = { ...todo };
-        if (todo.id === id) {
-          updatedTodo = {
-            ...updatedTodo,
-            text: event.target.value,
-          };
-        }
-        return updatedTodo;
-      }),
+      todos: changeTodos(event,id)
     });
   };
 
   toggleComplete = (id) => {
+    const revertComplete = (id) => {
+      const todoIndex = this.state.todos.findIndex(todo => todo.id === id)
+      const todos = [...this.state.todos]
+      todos[todoIndex].complete = !todos[todoIndex].complete
+      return todos
+    }
     this.setState({
-      todos: this.state.todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            id: todo.id,
-            text: todo.text,
-            complete: !todo.complete,
-          };
-        } else {
-          return todo;
-        }
-      }),
+      todos: revertComplete(id)
     });
   };
 
@@ -95,7 +87,8 @@ class TodoList extends Component {
             </div>
           </div>
         </ul>
-        <Footer updateTodo={this.updateTodoToShow} />
+        <Footer updateTodo={this.updateTodoToShow}
+        />
       </div>
     );
   }
