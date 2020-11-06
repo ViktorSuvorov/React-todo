@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from '../redux/actions/actions';
 
 class TodoForm extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
     text: '',
   };
+  }
+  
   handleChange = (event) => {
     this.setState({
       text: event.target.value,
@@ -11,20 +17,19 @@ class TodoForm extends Component {
   };
 
   handleSubmit = (event) => {
+    const {text} = this.state;
+    const {onAddTodo} = this.props;
     event.preventDefault();
-    this.props.onSubmit({
-      id: new Date() + Math.random(),
-      text: this.state.text,
-      complete: false,
-    });
+    onAddTodo(text);
     this.setState({ text: '' });
   };
 
   render() {
+    const {text} = this.state
     return (
       <form className="todo-form" onSubmit={this.handleSubmit}>
         <input
-          value={this.state.text}
+          value={text}
           onChange={this.handleChange}
           id="todo-form-input"
           name="text"
@@ -35,4 +40,8 @@ class TodoForm extends Component {
   }
 }
 
-export default TodoForm;
+const mapDispatchToProps = (dispatch) => ({
+  onAddTodo:(text) => dispatch(addTodo(text)),
+});
+
+export default connect(null,mapDispatchToProps)(TodoForm)

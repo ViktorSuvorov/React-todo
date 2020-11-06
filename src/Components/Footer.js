@@ -4,7 +4,6 @@ let footer = (props) => {
   let changeFilter = (event) => {
     props.updateTodo(event.target.innerText);
   };
-
   return (
     <>
       <div className="todo-footer">

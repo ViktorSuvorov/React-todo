@@ -1,47 +1,38 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { ADD_TODO, TOGGLE_TODO } from '../redux/actions/actionTypes';
 import Footer from './Footer';
 import TodoForm from './TodoForm';
 import TodoItem from './TodoItem';
+import {deleteTodo, toggleTodo} from '../redux/actions/actions'
 class TodoList extends Component {
-  state = {
-    todos: [],
-    todoFilter: 'all',
-  };
 
   addTodo = (todo) => {
     this.setState({
-      todos: [todo, ...this.state.todos],
+      todos: [todo, ...this.props.todos],
     });
   };
 
-  handleDeleteTodo = (id) => {
+  handleDeleteTodo = () => {
+   
+  };
+
+  handleChangeRow = (event, id) => {
+    const changeTodos = (event, id) => {
+      const todoIndex = this.props.todos.findIndex((todo) => todo.id === id);
+      const todos = [...this.props.todos];
+      todos[todoIndex].text = event.target.value;
+      return todos;
+    };
     this.setState({
-      todos: this.state.todos.filter((todo) => todo.id !== id),
+      todos: changeTodos(event, id),
     });
   };
 
-  handleChangeRow = (event, id) => { 
-    const changeTodos = (event,id) => {
-      const todoIndex = this.state.todos.findIndex(todo => todo.id === id)
-      const todos = [...this.state.todos]
-      todos[todoIndex].text = event.target.value
-      return todos
-    }
-    this.setState({
-      todos: changeTodos(event,id)
-    });
-  };
-
-  toggleComplete = (id) => {
-    const revertComplete = (id) => {
-      const todoIndex = this.state.todos.findIndex(todo => todo.id === id)
-      const todos = [...this.state.todos]
-      todos[todoIndex].complete = !todos[todoIndex].complete
-      return todos
-    }
-    this.setState({
-      todos: revertComplete(id)
-    });
+  toggleComplete = () => {
+    const {onToggleTodo,id} = this.props;
+    onToggleTodo(id)
+    console.log(id)
   };
 
   updateTodoToShow = (show) => {
@@ -51,7 +42,8 @@ class TodoList extends Component {
   };
 
   getTodoList = () => {
-    const { todos, todoFilter } = this.state;
+    const todos = this.props.todos;
+    const todoFilter = this.props.todoFilter
     if (todoFilter === 'active') {
       return todos.filter((todo) => !todo.complete);
     }
@@ -60,17 +52,18 @@ class TodoList extends Component {
     }
     return todos;
   };
-
   render() {
+    console.log('app',this.props)
+  
     return (
       <div>
-        <TodoForm onSubmit={this.addTodo} />
+        <TodoForm/>
         <ul>
           {this.getTodoList().map((todo) => (
             <TodoItem
               key={todo.id}
-              toggleComplete={() => this.toggleComplete(todo.id)}
-              deleteTodo={() => this.handleDeleteTodo(todo.id)}
+              toggleComplete={this.props.onToggleTodo}
+              deleteTodo={() => this.handleDeleteTodo}
               id={todo.id}
               todo={todo}
               handleChangeRow={(event) => this.handleChangeRow(event, todo.id)}
@@ -79,19 +72,28 @@ class TodoList extends Component {
           <div className="todo-info">
             <div className="todo-info-item">
               items left:{' '}
-              {this.state.todos.filter((todo) => !todo.complete).length}
+              {this.props.todos.filter((todo) => !todo.complete).length}
             </div>
             <div className="todo-info-item">
               items completed:
-              {this.state.todos.filter((todo) => todo.complete).length}
+              {this.props.todos.filter((todo) => todo.complete).length}
             </div>
           </div>
         </ul>
-        <Footer updateTodo={this.updateTodoToShow}
-        />
+        <Footer updateTodo={this.updateTodoToShow} />
       </div>
     );
   }
 }
 
-export default TodoList;
+const mapStateToProps = state => ({
+  todos:state.todos,
+  todoFilter:state.todoFilter
+})
+
+const mapDispatchToProps = dispatch => ({
+onDeleteTodo:(id) => dispatch(deleteTodo(id)),
+onToggleTodo:(id) => dispatch(toggleTodo(id))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(TodoList);
