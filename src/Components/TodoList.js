@@ -12,16 +12,14 @@ class TodoList extends Component {
     });
   };
 
-  handleDeleteTodo = () => {
-   console.group('handleDeleteTodo')
-   const {onDeleteTodo,todos} = this.props;
+  // handleDeleteTodo = (id) => {
+  //  console.group('handleDeleteTodo')
+  //  const {onDeleteTodo} = this.props;
 
-   onDeleteTodo(todos.id)
-   console.log('adasda',onDeleteTodo)
-   console.log(todos)
-   console.log(todos.id)
-   console.groupEnd('handleDeleteTodo')
-  };
+  //  onDeleteTodo(id)
+  //  console.log('adasda',onDeleteTodo)
+  //  console.groupEnd('handleDeleteTodo')
+  // };
 
   handleChangeRow = (event, id) => {
     const changeTodos = (event, id) => {
@@ -60,7 +58,7 @@ class TodoList extends Component {
   };
   render() {
     console.log('app',this.props)
-  
+  const { onDeleteTodo } = this.props;
     return (
       <div>
         <TodoForm/>
@@ -69,7 +67,7 @@ class TodoList extends Component {
             <TodoItem
               key={todo.id}
               toggleComplete={this.props.onToggleTodo}
-              deleteTodo={this.handleDeleteTodo}
+              deleteTodo={onDeleteTodo}
               id={todo.id}
               todo={todo}
               handleChangeRow={(event) => this.handleChangeRow(event, todo.id)}
