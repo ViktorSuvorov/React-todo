@@ -20,3 +20,11 @@ export const deleteTodo = id => (
         payload:id,
     }
 )
+
+// export const updateTodo = (event,id) => (
+//     {
+//         type:UPDATE_TODO,
+//         payload:id,
+//         event
+//     }
+// )

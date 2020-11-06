@@ -12,15 +12,6 @@ class TodoList extends Component {
     });
   };
 
-  // handleDeleteTodo = (id) => {
-  //  console.group('handleDeleteTodo')
-  //  const {onDeleteTodo} = this.props;
-
-  //  onDeleteTodo(id)
-  //  console.log('adasda',onDeleteTodo)
-  //  console.groupEnd('handleDeleteTodo')
-  // };
-
   handleChangeRow = (event, id) => {
     const changeTodos = (event, id) => {
       const todoIndex = this.props.todos.findIndex((todo) => todo.id === id);
@@ -33,11 +24,11 @@ class TodoList extends Component {
     });
   };
 
-  toggleComplete = () => {
-    const {onToggleTodo,id} = this.props;
-    onToggleTodo(id)
-    console.log(id)
-  };
+  // toggleComplete = () => {
+  //   const {onToggleTodo,id} = this.props;
+  //   onToggleTodo(id)
+  //   console.log(id)
+  // };
 
   updateTodoToShow = (show) => {
     this.setState({
@@ -58,7 +49,7 @@ class TodoList extends Component {
   };
   render() {
     console.log('app',this.props)
-  const { onDeleteTodo } = this.props;
+  const { onDeleteTodo,onToggleTodo } = this.props;
     return (
       <div>
         <TodoForm/>
@@ -66,8 +57,8 @@ class TodoList extends Component {
           {this.getTodoList().map((todo) => (
             <TodoItem
               key={todo.id}
-              toggleComplete={this.props.onToggleTodo}
-              deleteTodo={onDeleteTodo}
+              toggleComplete={() => onToggleTodo(todo.id)}
+              deleteTodo={() => onDeleteTodo(todo.id)}
               id={todo.id}
               todo={todo}
               handleChangeRow={(event) => this.handleChangeRow(event, todo.id)}
