@@ -6,10 +6,10 @@ class TodoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    text: '',
-  };
+      text: '',
+    };
   }
-  
+
   handleChange = (event) => {
     this.setState({
       text: event.target.value,
@@ -17,15 +17,15 @@ class TodoForm extends Component {
   };
 
   handleSubmit = (event) => {
-    const {text} = this.state;
-    const {onAddTodo} = this.props;
+    const { text } = this.state;
+    const { onAddTodo } = this.props;
     event.preventDefault();
     onAddTodo(text);
     this.setState({ text: '' });
   };
 
   render() {
-    const {text} = this.state
+    const { text } = this.state;
     return (
       <form className="todo-form" onSubmit={this.handleSubmit}>
         <input
@@ -41,7 +41,7 @@ class TodoForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddTodo:(text) => dispatch(addTodo(text)),
+  onAddTodo: (text) => dispatch(addTodo(text)),
 });
 
-export default connect(null,mapDispatchToProps)(TodoForm)
+export default connect(null, mapDispatchToProps)(TodoForm);

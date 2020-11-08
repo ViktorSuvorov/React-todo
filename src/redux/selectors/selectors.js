@@ -1,7 +1,21 @@
-// import React from 'react';
+import { createSelector } from 'reselect';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../actions/actionTypes';
 
-// // const selectTodos = (state) => state.todos;
-// // const selectTotalCompletedTodos = (state) => {
-// //   const completedTodos = state.todos.filter((todo) => todo.complete);
-// //   return completedTodos.length;
-// // };
+const getVisibilityFilter = (store) => store.filterReducer.filter;
+const getTodos = (store) => store.todoReducer.todos;
+
+export const getVisibleTodos = createSelector(
+  [getVisibilityFilter, getTodos],
+  (filter, todos) => {
+    switch (filter) {
+      case SHOW_ALL:
+        return todos;
+      case SHOW_COMPLETED:
+        return todos.filter((todo) => todo.complete);
+      case SHOW_ACTIVE:
+        return todos.filter((todo) => !todo.complete);
+      default:
+        return todos;
+    }
+  }
+);

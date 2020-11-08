@@ -4,10 +4,10 @@ import { ADD_TODO, DELETE_TODO, TOGGLE_TODO } from '../actions/actionTypes';
 
 const initialState = {
   todos: [],
-  todoFilter:'All'
+  todoFilter: 'All',
 };
 
-const rootReducer = (state = initialState, action) => {
+const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
       return {
@@ -24,7 +24,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         todos: [...state.todos.filter((todo) => todo.id !== action.payload)],
       };
-      
+
     case TOGGLE_TODO:
       return {
         todos: [
@@ -43,4 +43,4 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-export default rootReducer;
+export default todoReducer;
