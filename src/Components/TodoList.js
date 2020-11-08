@@ -24,19 +24,16 @@ class TodoList extends Component {
       <div>
         <TodoForm />
         <ul>
-          {todos &&
-            todos.map((todo) => (
-              <TodoItem
-                key={todo.id}
-                toggleComplete={() => onToggleTodo(todo.id)}
-                deleteTodo={() => onDeleteTodo(todo.id)}
-                id={todo.id}
-                todo={todo}
-                handleChangeRow={(event) =>
-                  this.handleChangeRow(event, todo.id)
-                }
-              />
-            ))}
+          {todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              toggleComplete={() => onToggleTodo(todo.id)}
+              deleteTodo={() => onDeleteTodo(todo.id)}
+              id={todo.id}
+              todo={todo}
+              handleChangeRow={(event) => this.handleChangeRow(event, todo.id)}
+            />
+          ))}
           <div className="todo-info">
             <div className="todo-info-item">
               items left:{' '}
