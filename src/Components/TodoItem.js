@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useRef } from 'react';
-import { connect } from 'react-redux';
-import { deleteTodo, toggleTodo } from '../redux/actions/actions';
 
-let todoItem = (props) => {
+const TodoItem = (props) => {
   const [isComponentVisible, setIsComponentVisible] = useState(false);
 
   const ref = useRef(null);
@@ -62,14 +60,4 @@ let todoItem = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  todos: state.todos,
-  todoFilter: state.todoFilter,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onDeleteTodo: (id) => dispatch(deleteTodo(id)),
-  onToggleTodo: (id) => dispatch(toggleTodo(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(todoItem);
+export default TodoItem;

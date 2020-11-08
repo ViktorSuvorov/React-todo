@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from './Components/Header';
 import TodoList from './Components/TodoList';
 import Footer from './Components/Footer';
-import { deleteTodo, toggleTodo } from './redux/actions/actions';
+import PropTypes from 'prop-types';
 import { setFilter } from './redux/actions/actions';
 import { getVisibleTodos } from './redux/selectors/selectors';
 
@@ -27,9 +27,12 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteTodo: (id) => dispatch(deleteTodo(id)),
-  toggleTodo: (id) => dispatch(toggleTodo(id)),
   onsetFilter: (filter) => dispatch(setFilter(filter)),
 });
+
+App.propTypes = {
+  todosFiltred: PropTypes.instanceOf(Array).isRequired,
+  onsetFilter: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

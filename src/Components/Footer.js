@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   SHOW_ALL,
   SHOW_ACTIVE,
   SHOW_COMPLETED,
 } from '../redux/actions/actionTypes';
-import {ALL,ACTIVE,COMPLETED} from '../constants'
+import { ALL, ACTIVE, COMPLETED } from '../constants';
 
 const Footer = (props) => {
   const { setFilter } = props;
@@ -23,7 +24,7 @@ const Footer = (props) => {
     <>
       <div className="todo-footer">
         <button autoFocus onClick={changeFilter}>
-         {ALL}
+          {ALL}
         </button>
         <button onClick={changeFilter}>{ACTIVE}</button>
         <button onClick={changeFilter}>{COMPLETED}</button>
@@ -31,6 +32,10 @@ const Footer = (props) => {
       <div className="footer-info">Double-click on text to edit a todo</div>
     </>
   );
+};
+
+Footer.propTypes = {
+  setFilter: PropTypes.func.isRequired,
 };
 
 export default Footer;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TodoForm from './TodoForm';
 import TodoItem from './TodoItem';
 import { deleteTodo, toggleTodo } from '../redux/actions/actions';
+import PropTypes from 'prop-types';
 class TodoList extends Component {
   handleChangeRow = (event, id) => {
     const changeTodos = (event, id) => {
@@ -56,5 +57,10 @@ const mapDispatchToProps = (dispatch) => ({
   onDeleteTodo: (id) => dispatch(deleteTodo(id)),
   onToggleTodo: (id) => dispatch(toggleTodo(id)),
 });
+
+TodoList.propTypes = {
+  onDeleteTodo: PropTypes.func.isRequired,
+  onToggleTodo: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(TodoList);
